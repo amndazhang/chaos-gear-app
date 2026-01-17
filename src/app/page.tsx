@@ -11,7 +11,7 @@ export default function Home() {
       if (!data.session) router.push('/login')
       else router.push('/member')
     })
-  }, [])
+  }, [router])
 
   return null
 }
