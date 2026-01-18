@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import QRCode from 'qrcode.react';
+import { QRCodeCanvas } from 'qrcode.react'
 
 export default function MemberPage() {
   const [formData, setFormData] = useState({
@@ -85,8 +85,9 @@ export default function MemberPage() {
               </div>
             </div>
             {checkoutId && (
-              <div className="flex justify-center mb-6">
-                <QRCode value={checkoutId} size={256} />
+              <div className="flex flex-col items-center mb-6">
+                <QRCodeCanvas value={checkoutId} size={256} />
+                <p className="mt-4 text-sm font-semibold text-gray-700">Checkout ID: {checkoutId}</p>
               </div>
             )}
             <button
