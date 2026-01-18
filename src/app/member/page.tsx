@@ -1,7 +1,7 @@
 'use client';
 
-import { useState, useRef } from 'react';
-import QRCode from 'qrcode';
+import { useState } from 'react';
+import QRCode from 'qrcode.react';
 
 export default function MemberPage() {
   const [formData, setFormData] = useState({
@@ -15,15 +15,6 @@ export default function MemberPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [checkoutId, setCheckoutId] = useState<string | null>(null);
-  const qrCanvasRef = useRef<HTMLCanvasElement>(null);
-
-  const generateQRCode = (value: string) => {
-    if (qrCanvasRef.current) {
-      QRCode.toCanvas(qrCanvasRef.current, value, { width: 256 }, (err) => {
-        if (err) console.error(err);
-      });
-    }
-  };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -49,7 +40,6 @@ export default function MemberPage() {
       .then((data) => {
         console.log('Checkout created:', data);
         setCheckoutId(data.checkout_id);
-        generateQRCode(data.checkout_id);
         setIsLoading(false);
         setIsSubmitted(true);
       })
@@ -96,7 +86,7 @@ export default function MemberPage() {
             </div>
             {checkoutId && (
               <div className="flex justify-center mb-6">
-                <canvas ref={qrCanvasRef}></canvas>
+                <QRCode value={checkoutId} size={256} />
               </div>
             )}
             <button
