@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { QRCodeCanvas } from 'qrcode.react'
+import { QRCodeSVG } from 'qrcode.react';
 
 export default function MemberPage() {
   const [formData, setFormData] = useState({
@@ -62,32 +62,10 @@ export default function MemberPage() {
         {isSubmitted ? (
           <div className="text-center">
             <h1 className="text-2xl font-bold mb-6 text-gray-800">Confirmation</h1>
-            <div className="space-y-4 text-left mb-6">
-              <div className="border-b pb-2">
-                <p className="text-sm text-gray-600">Name</p>
-                <p className="font-semibold text-gray-800">{formData.name}</p>
-              </div>
-              <div className="border-b pb-2">
-                <p className="text-sm text-gray-600">Email</p>
-                <p className="font-semibold text-gray-800">{formData.email}</p>
-              </div>
-              <div className="border-b pb-2">
-                <p className="text-sm text-gray-600">Phone Number</p>
-                <p className="font-semibold text-gray-800">{formData.phoneNumber}</p>
-              </div>
-              <div className="border-b pb-2">
-                <p className="text-sm text-gray-600">Destination</p>
-                <p className="font-semibold text-gray-800">{formData.destination}</p>
-              </div>
-              <div className="pb-2">
-                <p className="text-sm text-gray-600">Cal ID or Driver's License</p>
-                <p className="font-semibold text-gray-800">{formData.id}</p>
-              </div>
-            </div>
             {checkoutId && (
               <div className="flex flex-col items-center mb-6">
-                <QRCodeCanvas value={checkoutId} size={256} />
-                <p className="mt-4 text-sm font-semibold text-gray-700">Checkout ID: {checkoutId}</p>
+                <QRCodeSVG value={checkoutId} size={256} />
+                <p className="mt-4 text-sm font-semibold text-gray-700">ID: {checkoutId}</p>
               </div>
             )}
             <button
