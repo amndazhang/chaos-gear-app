@@ -5,11 +5,11 @@ export async function POST(req: Request) {
   try {
     const body = await req.json();
 
-    // 1. check if person exists by id_number (Cal ID or Driver's License)
+    // 1. check if person exists by cal_id_dl (Cal ID or Driver's License)
     const { data: existingPerson, error: searchError } = await supabase
       .from('people')
       .select('id')
-      .eq('id_number', body.id)
+      .eq('cal_id_dl', body.id)
       .single();
 
     let person;
@@ -23,15 +23,16 @@ export async function POST(req: Request) {
         .from('people')
         .insert({
           email: body.email,
-          full_name: body.name,
+          name: body.name,
           phone: body.phoneNumber,
+          cal_id_dl: body.id,
         })
         .select()
         .single();
 
       if (createError || !newPerson) {
         console.error('Person creation error:', createError);
-        return NextResponse.json({ error: 'Failed to create person' }, { status: 400 });
+        return NextResponse.json({ error: `Failed to create person: ${createError?.message}` }, { status: 400 });
       }
 
       person = newPerson;
@@ -43,7 +44,8 @@ export async function POST(req: Request) {
       .insert({
         person_id: person.id,
         destination: body.destination,
-        id_number: body.id,
+        checkout_time: new Date().toISOString(),
+        status: 'active',
       })
       .select()
       .single();
