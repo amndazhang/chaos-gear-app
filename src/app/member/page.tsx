@@ -38,6 +38,12 @@ export default function MemberPage() {
     })
       .then((res) => res.json())
       .then((data) => {
+        console.log('Response data:', data);
+        if (data.error) {
+          setError(data.error);
+          setIsLoading(false);
+          return;
+        }
         console.log('Checkout created:', data);
         setCheckoutId(data.checkout_id);
         setIsLoading(false);
