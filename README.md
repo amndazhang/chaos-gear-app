@@ -1,4 +1,4 @@
-## CHAOS Gear App
+## CHAOS Gear Shed App
 Working repo for [CHAOS]([url](https://www.chaosberkeley.org/#/))' gear shed. Redesigning and redeveloping the club's gear exchange experience to be simple and accessible for all those who go outside. 
 
 Member-facing app:
